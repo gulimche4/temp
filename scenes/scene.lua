@@ -41,8 +41,8 @@ end
 function Scene:check_tags(b, tags)
     tags = tags or {}
     local blocked = false
-    for i, filter in ipairs(tags) do
-        if b.tag == filter then
+    for i, tag in ipairs(tags) do
+        if b.tag == tag then
             blocked = true
             break
         end
