@@ -52,7 +52,7 @@ end
 
 function Scene:check(a, tags)
     local cols = {}
-    for _, b in ipairs(self.objects) do
+    for _, b in pairs(self.objects) do
         if not self:check_tags(b, tags) then
             if a ~= b and self:check_collision(a, b) then
                 table.insert(cols, b)
@@ -63,7 +63,7 @@ function Scene:check(a, tags)
 end
 
 function Scene:dist(a, d, tag)
-    for _, b in ipairs(self.objects) do
+    for _, b in pairs(self.objects) do
         if b.tag == tag then
             if a ~= b and self:check_dist(a, b, d) then
                 return b
