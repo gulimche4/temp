@@ -53,7 +53,7 @@ end
 function Scene:check(a, tags)
     local cols = {}
     for _, b in pairs(self.objects) do
-        if not self:check_tags(b, tags) then
+        if b.col and not self:check_tags(b, tags) then
             if a ~= b and self:check_collision(a, b) then
                 table.insert(cols, b)
             end
@@ -76,14 +76,12 @@ function Scene:move_x(a, x, tags)
     a.x = a.x+x
     local cols = self:check(a, tags)
     for _, c in ipairs(cols) do
-        if c.col then
-            if x > 0 then
-                a.x = c.x-a.w
-            else
-                a.x = c.x+c.w
-            end
-            return c
+        if x > 0 then
+            a.x = c.x-a.w
+        else
+            a.x = c.x+c.w
         end
+        return c
     end
     return nil
 end
@@ -92,14 +90,12 @@ function Scene:move_y(a, y, tags)
     a.y = a.y+y
     local cols = self:check(a, tags)
     for _, c in ipairs(cols) do
-        if c.col then
-            if y > 0 then
-                a.y = c.y-a.h
-            else
-                a.y = c.y+c.h
-            end
-            return c
+        if y > 0 then
+            a.y = c.y-a.h
+        else
+            a.y = c.y+c.h
         end
+        return c
     end
     return nil
 end
