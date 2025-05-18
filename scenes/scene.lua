@@ -35,7 +35,21 @@ function Scene:check_collision(a, b)
 end
 
 function Scene:check_dist(a, b, d)
-    return math.sqrt((a.x^2-b.x^2)+(a.y^2-b.y^2)) <= d
+    local ax, ay = a.x, a.y
+    if a.cx then
+        ax = ax+a.cx
+    end
+    if a.cy then
+        ay = ay+a.cy
+    end
+    local bx, by = b.x, b.y
+    if b.cx then
+        bx = bx+b.cx
+    end
+    if b.cy then
+        by = by+b.cy
+    end
+    return math.sqrt((ax-bx)^2+(ay-by)^2) <= d
 end
 
 function Scene:check_tags(b, tags)
