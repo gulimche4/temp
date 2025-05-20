@@ -7,9 +7,8 @@ local last_id = 0
 function Scene:add(object, ...)
     local o = object:new()
     o:init(self, ...)
-    local id = last_id
-    self.objects[id] = o
-    o.id = id
+    self.objects[last_id] = o
+    o.id = last_id
     last_id = last_id+1
     return o
 end
