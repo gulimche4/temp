@@ -2,12 +2,15 @@ local Object = require("object")
 
 local Scene = Object:new()
 
+local last_id = 0
+
 function Scene:add(object, ...)
     local o = object:new()
     o:init(self, ...)
-    local id = string.format("%p", o)
+    local id = last_id
     self.objects[id] = o
     o.id = id
+    last_id = last_id+1
     return o
 end
 
