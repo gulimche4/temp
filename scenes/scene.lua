@@ -2,19 +2,15 @@ local Object = require("object")
 
 local Scene = Object:new()
 
-local last_id = 0
-
 function Scene:add(object, ...)
     local o = object:new()
     o:init(self, ...)
-    self.objects[last_id] = o
-    o.id = last_id
-    last_id = last_id+1
+    table.insert(self.objects, o)
     return o
 end
 
-function Scene:remove(object)
-    self.objects[object.id] = nil
+function Scene:remove(o)
+    self.objects.remove(o)
 end
 
 function Scene:init(sm)
@@ -68,7 +64,7 @@ end
 
 function Scene:check(a, tags)
     local cols = {}
-    for _, b in pairs(self.objects) do
+    for _, b in ipairs(self.objects) do
         if b.col and not self:check_tags(b, tags) then
             if a ~= b and self:check_collision(a, b) then
                 table.insert(cols, b)
@@ -79,7 +75,7 @@ function Scene:check(a, tags)
 end
 
 function Scene:dist(a, d, tag)
-    for _, b in pairs(self.objects) do
+    for _, b in ipairs(self.objects) do
         if b.tag == tag then
             if a ~= b and self:check_dist(a, b, d) then
                 return b

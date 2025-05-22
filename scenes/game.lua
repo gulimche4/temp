@@ -8,13 +8,16 @@ function Game:init(sm)
 end
 
 function Game:draw()
-    for _, object in pairs(self.objects) do
+    table.sort(self.objects, function (a, b)
+        return a.z < b.zsa
+    end)
+    for _, object in ipairs(self.objects) do
         object:draw()
     end
 end
 
 function Game:update(dt)
-    for _, object in pairs(self.objects) do
+    for _, object in ipairs(self.objects) do
         object:update(dt)
     end
 end
